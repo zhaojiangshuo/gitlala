@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-model.lazy = 'test'>
+    {{test}}
+    
+    <input type="number" v-model.number = 'number'>
+    {{typeof number}}
+
+    <select v-model="selected" multiple>
+        <option value="" >请选择</option>
+        <option :value="o" v-for="o in options">{{o}}</option>
+      </select>
+     {{selected}}
+
+   <div>
+    跳舞
+    <input type="checkbox" value="跳舞" v-model='checked' key = '1'  @click = 'fn'>
+    唱歌
+    <input type="checkbox" value='唱歌' v-model='checked' key = '2'  @click='fn'>
+    {{checked}}
+    </div>
+
+
+  </div>
+</body>
+</html>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+  var vm = new Vue({
+    el:'#app',
+    data:{
+      checked:[],
+      test:'lalala',
+      number:123,
+      selected:[], 
+      options:['睡觉','吃饭','去厕所'],
+    },
+    methods:{
+       fn(){
+        console.log(this.checked);
+      }
+    }
+  })
+   console.log(vm.checked);
+</script>

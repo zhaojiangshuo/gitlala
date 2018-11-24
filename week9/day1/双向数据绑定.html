@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+       {{name}}
+       <!-- 只有表单元素可以直接操作数据，比如input框、rextarea、selected、checkbox、radio -->
+       <!-- input框通过v-model 显示数据name的值 -->
+       <!-- 我们可以通过input输入框将里面的值进行改变，又因为v-model将输入框当中的值和vue数据中的值相互绑定，所以我们修改input框中的值会直接影响数据【data】的值 -->
+       <input type="text" v-model = 'name'>
+    </div>
+</body>
+</html>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            name:'zf',
+        }
+    })
+    /* 
+    mvvm  model view viewmodel 双向数据绑定，数据当中的值发生改变，直接回显示到页面当中，当页面当中的值改变之后，数据的值也会进行相应的改变
+
+    在vue当中，我们可以通过vue指令 v-model 实现双向数据绑定  
+                                        
+    在双向数据绑定是通过Object.defaultProperty(对象，属性名，选项{})
+     */
+    var obj = {};
+    //不支持低版本浏览器
+    Object.defineProperty(obj,'name',{
+        //获取值的时候会执行这个方法
+        get(val){
+         console.log(val);
+        },
+        //设置值的时候会执行这个方法
+        set(val){
+            return val
+        },
+    })
+    obj.name = 1
+</script>

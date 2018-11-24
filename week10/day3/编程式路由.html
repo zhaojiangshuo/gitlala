@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <a href="#/home">首页</a> -->
+        <!-- <a href="#/list">列表页</a> -->
+        <router-link to='/home'>首页</router-link>
+        <router-link to='/list'>列表页</router-link>
+
+        <!-- 路由匹配的组件显示在这 -->
+        <router-view></router-view>
+    </div>
+</body>
+
+</html>
+<script src="node_modules/vue/dist/vue.js"></script>
+<!-- vue-router必须在vue下面，要保持依赖关系 -->
+<script src="node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+    let home = { template: '<div>首页<button @click="fn">返回到首页</button></div>' ,
+    methods:{
+        fn(){
+            // this.$router.back('/home') //让页面强制回到某个路径
+            //this.$router.go(-1)//回到上个路径页面
+            //this.$router.replace('/list')//将当前的路径替换并跳转
+        }
+    }
+}
+    let list = { template: '<div>列表页<button @click="fn">返回到首页</button></div>',
+    methods:{
+        fn(){
+            this.$router.push('/home') //让页面强制回到某个路径
+        }
+    }
+ }
+    let error = {
+        template:'<div>404</div>',
+    }
+    //创建组件所对应的映射表，【访问什么路径跳转什么组件】
+    let routes = [
+        { path: '/home', component: home },
+        { path: '/list', component: list },
+        {path:'*',redirect:'/404'},//【路径重定向】当用户输入网址错误的话，自动跳转到404页面，而且路径也会修改
+    ]
+    //将路由的映射表放入vue-router提供的自定义类中
+    let router = new VueRouter({
+        routes:routes,
+        //mode:'history',//h5提供的路径方法 history.pushState(),不能回车跳转，只有上线的时候，才会用到
+        linkActiveClass:'active'
+    })
+    new Vue({
+        el: '#app',
+        router //只要router在选项添加，组件都可以使用 $router这个方法
+    })
+</script>
+<script>
+    /* 
+    vue属于渐进式框架，如果只开发一个单页，也可以不去引入vue-router这个文件
+    vue全家桶 vue.js vue-router vuex axios webpack
+
+    如果我们开发项目的时候，考虑到页面的跳转，组件的加载，我们可以用到vue-router【路由】
+
+    vue是spa-【single page application】单页面应用  只有一个html文件，只改变页面当中让组件进行切换
+
+    vue-router主要是让组件按规定的路由地址进行显示或隐藏
+
+    页面跳转分为
+    #/xxx【哈西模式跳转】：一般我们开发的时候多会用到，【点击跳转的时候不会跳转到其他页面】，上线的时候一般不会用这种模式，因为不方便seo
+     /xxx【传统模式的路径】：是h5提供的history.pushState('','','/aaa')
+    一般我们在上线的时候，会用到这种模式进行跳转【缺点：如果在开发的时候，用这种模式配置路由，会找到页面】
+
+    vue-router 也是默认用的哈西模式路由跳转
+    前端后端分离：前端只处理路由跳转、页面逻辑、页面渲染样式，后端只处理数接口
+
+    所有前后端分离的项目都不方便做seo优化，不能够被搜索引擎的爬虫搜索到，然后首页然后后端提供，其他页面还是通过
+    路由切换
+     */
+</script>

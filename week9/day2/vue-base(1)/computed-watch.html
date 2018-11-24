@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+   <div id="app">
+       {{fullName}}
+   </div>
+</body>
+</html>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            firstName:'大',
+            lastName:'硕',
+            fullName:''
+        },
+        computed:{
+            fullName(){
+                return this.firstName+this.lastName
+            }
+        },
+        watch:{
+           firstName:{
+               handler(){
+                   setTimeout(()=>{
+                       this.fullName = this.firstName+this.lastName
+                   },1000)
+               },
+               immediate:true
+           },
+           lastName:{
+               handler(){
+                this.fullName = this.firstName+this.lastName
+               },
+               immediate:true
+           }
+        }
+    })
+</script>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <count></count>
+        <home></home>
+    </div>
+</body>
+</html>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script src="node_modules/vuex/dist/vuex.js"></script>
+<script>
+    const store = new Vuex.Store({
+        state:{
+            count:0,
+            arr:[1,2,3,4]
+        },
+        mutations:{
+            add(state){
+                // 在vuex该状态都在mutations的函数中
+                state.count++
+            },
+        }
+    });
+    let count = {
+        data(){
+            return {}
+        },
+        mounted(){
+            
+        },
+        template:`<div>
+            {{$store.state.count}}
+            <button @click="fn">+</button>
+            <button>-</button>
+            </div>`,
+        methods:{
+            fn(){
+                // this 组件的实例
+                // commit 的参数是store的mutations定义的方法名字
+                this.$store.commit("add");
+            }
+        }
+    }
+    let home = {
+        data(){
+            return {}
+        },
+        template:`<div>{{$store.state.count}}</div>`
+    }
+    let vm = new Vue({
+        el:'#app',
+        data:{},
+        store,
+        components:{
+            count,
+            home,
+
+        }
+    })
+</script>
